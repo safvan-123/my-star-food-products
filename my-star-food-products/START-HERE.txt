@@ -1,0 +1,24 @@
+MY STAR FOOD PRODUCTS — QUICK START (WINDOWS)
+
+1. Install Node.js 24 LTS.
+2. Extract the ZIP fully.
+3. Open the my-star-food-products folder in VS Code (package.json must be visible).
+4. In the VS Code PowerShell terminal run:
+
+   npm ci
+   Copy-Item .env.example .env.local
+   npm run dev
+
+5. Open http://localhost:3000
+
+The website now displays nine sample products before Sanity is connected.
+Set PRODUCT_SOURCE=demo in .env.local to keep samples if Sanity is already configured.
+For real products, use PRODUCT_SOURCE=sanity and add them through Studio.
+For Products admin: follow README.md, add your Sanity project ID in .env.local,
+restart the server, and open http://localhost:3000/studio .
+
+READ README.md for the complete beginner-friendly Sanity and Vercel guide.
+READ VALIDATION.md for completed checks and account-dependent checks.
+
+Company introduction, mission, vision and services now have suggested draft copy.
+Sample products use illustrated packaging; replace them with approved real content.

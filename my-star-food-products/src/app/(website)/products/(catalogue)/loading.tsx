@@ -1,0 +1,1 @@
+export default function Loading(){return <section className="section" aria-label="Loading products" aria-busy="true"><div className="container"><div className="skeleton skeleton-title"/><div className="product-grid">{[0,1,2].map(i=><div className="skeleton skeleton-card" key={i}/>)}</div><span className="sr-only">Loading products…</span></div></section>;}

@@ -1,0 +1,2 @@
+'use client';
+export default function ErrorPage({reset}:{error:Error;reset:()=>void}){return <section className="section"><div className="container empty-products"><p className="eyebrow">PLEASE TRY AGAIN</p><h1>We couldn’t load this page.</h1><p>A temporary connection issue may be preventing the product information from loading.</p><button className="button button-indigo" onClick={reset}>Try again</button><a className="text-link" href="/contact">Contact our team</a></div></section>;}
