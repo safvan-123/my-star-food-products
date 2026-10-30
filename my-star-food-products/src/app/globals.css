@@ -21,3 +21,338 @@
 .site .button-green:hover{background:#236f2e}
 .site .button-white{background:#fff!important;color:#236f2e!important}
 .site .contact-cta{background:color-mix(in srgb,var(--green) 92%,black)}
+
+
+/* ==========================================================================
+   CLIENT REQUIREMENT: FIRST PAGE 3-COLOR GRADIENT (BLUE -> ORANGE -> GREEN)
+   + ENHANCED ANIMATIONS & VISITING CARD SHOWCASE
+   ========================================================================== */
+
+:root {
+  --client-blue-top: #18006B;
+  --client-blue-mid: #25008F;
+  --client-orange-mid: #EA580C;
+  --client-orange-soft: #F97316;
+  --client-green-bottom: #15803D;
+  --client-green-deep: #0D5226;
+
+  /* Full First-Page Vertical Gradient: Top Blue -> Middle Orange -> Bottom Green */
+  --home-page-gradient: linear-gradient(
+    180deg,
+    #140057 0%,
+    #25008F 16%,
+    #C2410C 38%,
+    #F97316 54%,
+    #EA580C 66%,
+    #15803D 84%,
+    #0D5226 100%
+  );
+
+  /* Hero First-Screen 3-Color Gradient Accent */
+  --hero-tricolor-gradient: linear-gradient(
+    180deg,
+    #160066 0%,
+    #25008F 38%,
+    #D9530F 72%,
+    #1B7A34 100%
+  );
+}
+
+.home-tricolor-canvas {
+  background: var(--home-page-gradient);
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+}
+
+/* Transparent sections on the home page so the Blue -> Orange -> Green gradient flows continuously */
+.home-tricolor-canvas .hero-tricolor {
+  background: var(--hero-tricolor-gradient);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.home-tricolor-canvas .section,
+.home-tricolor-canvas .section.white,
+.home-tricolor-canvas .contact-cta {
+  background: transparent !important;
+  position: relative;
+  z-index: 2;
+}
+
+/* Headings and text contrast on the 3-color gradient canvas */
+.home-tricolor-canvas .section-heading h2,
+.home-tricolor-canvas #about h2 {
+  color: #FFF8E7;
+  text-shadow: 0 2px 14px rgba(20, 0, 87, 0.35);
+}
+
+.home-tricolor-canvas .section-heading .eyebrow,
+.home-tricolor-canvas #about .eyebrow {
+  color: #FFE599 !important;
+}
+
+.home-tricolor-canvas .section-heading .text-link,
+.home-tricolor-canvas #about .text-link {
+  color: #FFF8E7 !important;
+}
+
+.home-tricolor-canvas #about .body-copy,
+.home-tricolor-canvas #about .location-note {
+  color: #FFF3E0;
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+/* Glassmorphic Frosted Cards over the Orange & Green Middle/Bottom Zones */
+.home-tricolor-canvas .product-card,
+.home-tricolor-canvas .service-card,
+.home-tricolor-canvas .value-card {
+  background: rgba(255, 252, 245, 0.95);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: var(--radius);
+  box-shadow: 0 18px 40px rgba(20, 0, 87, 0.18);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.home-tricolor-canvas .product-card:hover,
+.home-tricolor-canvas .service-card:hover,
+.home-tricolor-canvas .value-card:hover {
+  transform: translateY(-9px) scale(1.01);
+  box-shadow: 0 26px 50px rgba(20, 0, 87, 0.28);
+}
+
+.home-tricolor-canvas .company-visual {
+  background: rgba(255, 248, 231, 0.92);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.22);
+}
+
+/* Hero Badges & Quick Meta */
+.hero-badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(243, 207, 110, 0.45);
+  color: var(--gold-light);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  margin-bottom: 18px;
+  backdrop-filter: blur(6px);
+}
+
+.hero-quick-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-top: 26px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  font-size: 12px;
+  color: #FFF8E7;
+}
+
+.hero-quick-meta > div {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.hero-quick-meta a:hover {
+  color: var(--gold-light);
+  text-decoration: underline;
+}
+
+/* Animated Orbit Rings */
+.hero-orbit {
+  animation: slowSpin 38s linear infinite;
+}
+.hero-orbit-secondary {
+  width: 780px;
+  height: 780px;
+  top: -320px;
+  right: -240px;
+  border: 1px dashed rgba(243, 207, 110, 0.18);
+  animation: slowSpinReverse 28s linear infinite;
+}
+
+/* Ambient Floating Color Orbs */
+.tricolor-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.35;
+  pointer-events: none;
+  z-index: 0;
+  animation: orbPulse 10s ease-in-out infinite alternate;
+}
+.orb-blue {
+  width: 480px;
+  height: 480px;
+  background: #3B82F6;
+  top: 4%;
+  left: -120px;
+}
+.orb-orange {
+  width: 550px;
+  height: 550px;
+  background: #FB923C;
+  top: 42%;
+  right: -160px;
+  animation-delay: 2s;
+}
+.orb-green {
+  width: 500px;
+  height: 500px;
+  background: #22C55E;
+  bottom: 6%;
+  left: -140px;
+  animation-delay: 4s;
+}
+
+/* Infinite Scrolling Marquee Strip */
+.marquee-strip {
+  background: rgba(20, 0, 87, 0.88);
+  border-block: 1px solid rgba(243, 207, 110, 0.4);
+  padding: 13px 0;
+  overflow: hidden;
+  position: relative;
+  z-index: 3;
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  gap: 42px;
+  animation: marqueeScroll 28s linear infinite;
+}
+.marquee-item {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--gold-light);
+  white-space: nowrap;
+}
+
+/* Client Visiting Card Showcase Strip */
+.visiting-card-showcase {
+  background: linear-gradient(135deg, rgba(20, 0, 87, 0.95) 0%, rgba(37, 0, 143, 0.92) 100%);
+  border: 1px solid rgba(243, 207, 110, 0.55);
+  border-radius: 22px;
+  padding: 32px 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  flex-wrap: wrap;
+  box-shadow: 0 22px 48px rgba(15, 0, 60, 0.35);
+}
+.vc-brand {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+.vc-brand h2 {
+  color: #FFF8E7 !important;
+  font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+  margin-bottom: 6px;
+}
+.vc-director {
+  color: #E2D9FB;
+  font-size: 13px;
+  margin: 0 !important;
+}
+.vc-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+.vc-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.vc-qr-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  background: #fff;
+  padding: 8px;
+  border-radius: 12px;
+  border: 2px solid var(--gold);
+  color: var(--indigo-dark) !important;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  transition: transform 0.25s ease;
+}
+.vc-qr-box:hover {
+  transform: scale(1.05);
+}
+.vc-qr-box img {
+  border-radius: 6px;
+  display: block;
+}
+
+.contact-qr-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin: 18px auto;
+  padding: 14px;
+  background: #fff8e7;
+  border: 1px solid #e6d8b9;
+  border-radius: 14px;
+  max-width: 240px;
+}
+.contact-qr-card img {
+  border-radius: 8px;
+  border: 1px solid var(--gold);
+}
+.contact-qr-card span {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--indigo);
+}
+
+/* Floating WhatsApp Pulse Animation */
+.floating-whatsapp {
+  animation: whatsappPulse 2.4s infinite;
+}
+
+@keyframes marqueeScroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes slowSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes slowSpinReverse {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+@keyframes orbPulse {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(25px, -30px) scale(1.12); }
+}
+@keyframes whatsappPulse {
+  0% { box-shadow: 0 0 0 0 rgba(46, 139, 58, 0.7); }
+  70% { box-shadow: 0 0 0 14px rgba(46, 139, 58, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(46, 139, 58, 0); }
+}
+
+@media (max-width: 760px) {
+  .visiting-card-showcase {
+    padding: 24px 20px;
+  }
+  .vc-brand {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

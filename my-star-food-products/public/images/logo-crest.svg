@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" fill="none">
+  <defs>
+    <linearGradient id="goldGrad" x1="0" y1="0" x2="240" y2="240" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFF0A8"/>
+      <stop offset="45%" stop-color="#D4A537"/>
+      <stop offset="100%" stop-color="#8C5A08"/>
+    </linearGradient>
+    <linearGradient id="greenGrad" x1="0" y1="60" x2="240" y2="220" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#4ADE80"/>
+      <stop offset="100%" stop-color="#15803D"/>
+    </linearGradient>
+  </defs>
+  <!-- Top Wheat Ears -->
+  <g stroke="url(#goldGrad)" stroke-width="2.5" stroke-linecap="round" fill="url(#goldGrad)">
+    <path d="M112 36 C95 28, 75 24, 58 26" fill="none"/>
+    <ellipse cx="95" cy="27" rx="6" ry="3" transform="rotate(-15 95 27)"/>
+    <ellipse cx="80" cy="24" rx="6" ry="3" transform="rotate(-10 80 24)"/>
+    <ellipse cx="65" cy="24" rx="5" ry="2.5" transform="rotate(-5 65 24)"/>
+    <path d="M128 36 C145 28, 165 24, 182 26" fill="none"/>
+    <ellipse cx="145" cy="27" rx="6" ry="3" transform="rotate(15 145 27)"/>
+    <ellipse cx="160" cy="24" rx="6" ry="3" transform="rotate(10 160 24)"/>
+    <ellipse cx="175" cy="24" rx="5" ry="2.5" transform="rotate(5 175 24)"/>
+  </g>
+  <!-- Left & Right Green Fronds -->
+  <path d="M128 215 C82 195, 45 145, 42 78 C58 108, 78 148, 132 208 Z" fill="url(#greenGrad)" opacity="0.9"/>
+  <path d="M112 215 C158 195, 195 145, 198 78 C182 108, 162 148, 108 208 Z" fill="url(#greenGrad)" opacity="0.9"/>
+  <g stroke="url(#greenGrad)" stroke-width="3" stroke-linecap="round">
+    <path d="M52 105 L34 94 M56 122 L36 112 M63 139 L42 130 M72 155 L52 148 M84 170 L66 165 M98 184 L82 180"/>
+    <path d="M188 105 L206 94 M184 122 L204 112 M177 139 L198 130 M168 155 L188 148 M156 170 L174 165 M142 184 L158 180"/>
+  </g>
+  <!-- Shield Outer & Inner -->
+  <path d="M78 48 H162 L176 74 V116 C176 154, 148 178, 120 192 C92 178, 64 154, 64 116 V74 Z" fill="#1D0070" stroke="url(#goldGrad)" stroke-width="8" stroke-linejoin="round"/>
+  <path d="M84 40 H156" stroke="url(#goldGrad)" stroke-width="4" stroke-linecap="round"/>
+  <!-- Encircled M -->
+  <circle cx="120" cy="112" r="32" stroke="url(#goldGrad)" stroke-width="4" fill="#140057"/>
+  <text x="120" y="126" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-weight="bold" font-size="40" fill="url(#goldGrad)">M</text>
+</svg>
