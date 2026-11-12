@@ -1,0 +1,7 @@
+import {metadataFor,pageSeo} from '@/lib/seo';
+import {content} from '@/lib/content';
+import {business} from '@/lib/business';
+import {PageBanner,AboutPreview,Values,ContactCTA} from '@/components/shared';
+import {Reveal} from '@/components/animations';
+export const metadata=metadataFor(pageSeo.about.title,pageSeo.about.description,'/about');
+export default function About(){return <><PageBanner eyebrow="A LOCAL FOOD BUSINESS" title="Rooted locally. Focused on your shelves." description="Meet MY STAR FOOD PRODUCTS — a Kerala-based business focused on spices, masalas and everyday flour essentials for retail shops."/><AboutPreview/><section className="section mission-section"><div className="container three-grid"><Reveal><article className="editorial-card"><span className="editorial-index">01 / OUR MISSION</span><h2>Our mission</h2><p>{content.mission}</p></article></Reveal><Reveal delay={.08}><article className="editorial-card"><span className="editorial-index">02 / OUR VISION</span><h2>Our vision</h2><p>{content.vision}</p></article></Reveal><Reveal delay={.16}><article className="editorial-card director"><span className="editorial-index">03 / THE PEOPLE</span><h2>Meet the director</h2><p><strong>{business.director}</strong><br/>Director, MY STAR FOOD PRODUCTS</p><p>Based in Mylakuzhy, Nellanad, near Venjaramoodu, Kerala.</p></article></Reveal></div></section><Values/><ContactCTA/></>}

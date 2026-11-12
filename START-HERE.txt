@@ -1,0 +1,35 @@
+MY STAR FOOD PRODUCTS — RETAIL SHOP SUPPLY REDESIGN (12 NOV 2026)
+
+This ZIP keeps the SAME Next.js + Sanity project. It now focuses on
+spice powders, masala blends and rice flour / kitchen essentials for shops.
+
+WINDOWS STEP BY STEP:
+1. Install a recent Node.js 24 LTS.
+2. Extract the ZIP and open the project folder in VS Code.
+3. Open Terminal > New Terminal (PowerShell).
+4. Run:
+
+   npm ci
+   Copy-Item .env.example .env.local
+   npm run dev
+
+5. Open http://localhost:3000
+6. For real product admin, follow README.md and open /studio after Sanity setup.
+7. Run npm run typecheck, npm test, npm run build before deployment.
+
+IMPORTANT: All 6 example product items are DEMO DATA, not verified live stock.
+Replace sample imagery, prices, weights, ingredients and products before launch.
+The demo mode is not intended for public search indexing.
+
+Client's exact Google Maps link is already present in Contact.
+Director/contact details are retained from the supplied original project.
+
+READ RETAIL-SUPPLY-REDESIGN.md for all improvements and launch checklist.
+READ README.md for Sanity, hosting and deployment instructions.
+
+RUNTIME FIX (12 NOV 2026): The Footer + Contact runtime error from the
+removed lucide-react Instagram export is fixed in this cumulative ZIP.
+Use this updated ZIP, not the older Retail-Supply-Redesign.zip.
+If replacing files manually in an existing local folder, copy the new
+src/components/icons/instagram-icon.tsx as well as the changed footer.tsx
+and contact/page.tsx.
