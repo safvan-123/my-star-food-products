@@ -7,14 +7,14 @@ Verified 14 November 2026. This guide records the current production setup and t
 - Website: https://my-star-food-products.allprotechlabs.workers.dev
 - Sanity Studio: https://my-star-food-products.allprotechlabs.workers.dev/studio
 - GitHub repository: https://github.com/safvan-123/my-star-food-products
-- GitHub main commit at review time: ffcadf7 (the local handover changes still need approval before they are pushed).
+- GitHub main now includes handover commit 87162bd. Its parent revision was ffcadf7.
 - Cloudflare account: Allprotechlabs account
 - Cloudflare Worker: my-star-food-products
 - Active Worker version: cbb3f96f-a2de-4afb-8a16-9f4bdf83aa87
 - Sanity project: tmnhiibx
 - Sanity dataset: production
 
-The Worker uses HTTPS. The verified canonical address is the workers.dev URL above. No separate client-owned custom domain was provided or confirmed. Connect one only after the client chooses a domain and its DNS ownership and access are agreed.
+The Worker uses HTTPS. The verified canonical address is the workers.dev URL above. The operator confirmed that a custom domain is not needed now, so no domain purchase or DNS change is required.
 
 ## Current content
 
@@ -106,11 +106,11 @@ For recovery, first import a backup into a separately prepared non-production da
 - [ ] Client signs into the Studio URL with their own Sanity account.
 - [ ] Confirm that client's account is a member of project tmnhiibx and has the agreed role for editing and publishing.
 - [ ] Confirm the client and project owner can access Cloudflare account settings and the my-star-food-products Worker, or record the agreed ongoing operator.
-- [ ] Decide whether to keep the workers.dev URL or connect a client-owned custom domain. Verify registrar and DNS access before making changes.
+- [x] Keep the existing workers.dev URL for now. No custom domain purchase or DNS change is needed.
 - [ ] Store Cloudflare and GitHub recovery contacts with the authorized owners. Do not share passwords or API tokens in this document.
-- [ ] Approve and push the prepared GitHub commit when ready.
+- [x] Commit 87162bd was pushed to GitHub main on 14 November 2026.
 
-The current signed-in Studio session and Cloudflare deployment are under the Allprotechlabs account. The client's own account identity and Cloudflare ownership/access arrangement were not provided, so those client-side access checks remain unverified.
+The project operator confirmed that allprotechlabs@gmail.com is their account. The client's own Sanity account and agreed Cloudflare access arrangement remain unverified.
 
 ## Verification and remaining items
 
@@ -118,4 +118,4 @@ The current signed-in Studio session and Cloudflare deployment are under the All
 - HTTPS homepage, product listing, all four product detail pages, Studio tables/forms, robots.txt, and sitemap were checked. Search/category combinations, product images, and the general WhatsApp draft were checked in the browser.
 - Sanity CORS includes the two existing localhost origins and the production workers.dev origin with credentials enabled.
 - 16 automated tests passed. TypeScript, Next.js production build, and Vinext/Cloudflare production build passed. There is no lint script in package.json.
-- The source changes are still local and unpushed. Client Sanity member permissions, Cloudflare account ownership handoff, and any custom domain still require client confirmation.
+- Commit 87162bd is pushed to GitHub main. Client Sanity member permissions and the client's Cloudflare access arrangement still require confirmation. The current workers.dev URL is sufficient; no custom domain is pending.
