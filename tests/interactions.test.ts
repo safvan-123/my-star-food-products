@@ -4,9 +4,10 @@ import {createRequire} from 'node:module';
 import {createElement,act} from 'react';
 import {createRoot} from 'react-dom/client';
 import {PathnameContext} from 'next/dist/shared/lib/hooks-client-context.shared-runtime';
-import {Header} from '../src/components/header';
-import {ProductDetails} from '../src/components/product-details';
 const require=createRequire(import.meta.url);
+// Use Next's CommonJS component exports in the standalone DOM harness.
+const {Header}: typeof import('../src/components/header')=require('../src/components/header');
+const {ProductDetails}: typeof import('../src/components/product-details')=require('../src/components/product-details');
 const {JSDOM}=require('jsdom');
 function setup(){
  const dom=new JSDOM('<!doctype html><html><body><div id="root"></div></body></html>',{url:'http://localhost:3000'});

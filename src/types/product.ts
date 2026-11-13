@@ -6,7 +6,7 @@ export type ProductImage = {
 };
 export type Product = {
   demo?: boolean; _id: string; _updatedAt: string; name: string; slug: string;
-  category?: string; shortDescription?: string; fullDescription?: string;
+  category?: string; categoryId?: string; shortDescription?: string; fullDescription?: string;
   mainImage?: ProductImage; images?: ProductImage[]; weights?: string[];
   ingredients?: string; packagingDetails?: string; price?: number;
   featured?: boolean; visible?: boolean; displayOrder?: number;

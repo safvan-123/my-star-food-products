@@ -1,6 +1,6 @@
 import {business} from './business';
 import type {Product} from '@/types/product';
-export function whatsappUrl(message = `Hello ${business.name},\n\nI would like to enquire about products for my retail shop. Please share the current range, pack sizes and supply details.\n\nThank you.`) {
+export function whatsappUrl(message = `Hello MY STAR FOOD PRODUCTS,\n\nPlease share more information about your products. Thank you.`) {
   return `https://wa.me/${business.whatsapp}?text=${encodeURIComponent(message)}`;
 }
 export function productEnquiry(product: Pick<Product, 'name'|'slug'|'category'>, origin: string, weight?: string) {
@@ -8,7 +8,7 @@ export function productEnquiry(product: Pick<Product, 'name'|'slug'|'category'>,
   return whatsappUrl([
     `Hello ${business.name},`, '', 'I would like to enquire about supplying this product to my shop:', '',
     `Product: ${product.name}`, product.category && `Category: ${product.category}`,
-    weight && `Preferred pack size: ${weight}`, `Product link: ${url}`, '',
+    weight && `Preferred pack size: ${weight}`, `Product Link: ${url}`, '',
     'Please confirm the current availability, retailer pricing, pack sizes and supply options. Thank you.',
   ].filter(line => line !== undefined).join('\n'));
 }

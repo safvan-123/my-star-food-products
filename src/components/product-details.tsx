@@ -6,7 +6,9 @@ import {productImage} from '@/sanity/image';
 import {ProductPhoto} from './product-photo';
 import {WhatsAppEnquiryButton} from './whatsapp-button';
 export function ProductDetails({product,origin}:{product:Product;origin:string}){
-  const images=[product.mainImage,...(product.images||[])].filter(Boolean);
+  const images=[product.mainImage,...(product.images||[])].filter(
+    (image): image is NonNullable<typeof image> => !!productImage(image),
+  );
   const [selected,setSelected]=useState(0);const [weight,setWeight]=useState(product.weights?.[0]||'');
   const current=images[selected];
   return <div className="detail-grid"><div><div className="detail-main"><ProductPhoto key={selected} src={productImage(current,1400)} alt={current?.alt||product.name} priority sizes="(max-width: 760px) 100vw, 50vw"/></div>{images.length>1&&<div className="thumbnails" aria-label="Product gallery">{images.map((img,i)=><button key={img?._key||i} onClick={()=>setSelected(i)} aria-label={`Show product image ${i+1}`} aria-pressed={selected===i} className={selected===i?'selected':''}><ProductPhoto src={productImage(img,200)} alt={img?.alt||`${product.name}, image ${i+1}`} sizes="80px"/></button>)}</div>}</div>

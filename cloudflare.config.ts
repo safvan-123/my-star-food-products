@@ -13,6 +13,8 @@ export default defineConfig({
     },
     env: {
       ASSETS: bindings.assets(),
+      PRODUCT_SOURCE: {type: "text", value: "sanity"},
+      SITE_INDEXABLE: {type: "text", value: "true"},
     },
   }),
 });

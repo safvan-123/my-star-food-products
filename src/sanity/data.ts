@@ -4,7 +4,7 @@ import type {QueryParams} from 'next-sanity';
 import {client} from './client';
 import {demoProducts} from '@/lib/demo-products';
 import {useDemoProducts} from '@/lib/product-source';
-import {productsQuery, featuredQuery, productQuery, relatedQuery} from './queries';
+import {productsQuery, featuredQuery, productQuery, relatedQuery, categoriesQuery} from './queries';
 import type {Product} from '@/types/product';
 async function query<T>(groq: string, params: QueryParams, fallback: T): Promise<T> {
   if (!client) return fallback;
@@ -14,7 +14,9 @@ async function query<T>(groq: string, params: QueryParams, fallback: T): Promise
 export const getProducts = cache(() => useDemoProducts() ? Promise.resolve(demoProducts) : query<Product[]>(productsQuery, {}, []));
 export const getFeatured = cache(() => useDemoProducts() ? Promise.resolve(demoProducts.filter(p=>p.featured).slice(0,6)) : query<Product[]>(featuredQuery, {}, []));
 export const getProduct = cache((slug:string) => useDemoProducts() ? Promise.resolve(demoProducts.find(p=>p.slug===slug) || null) : query<Product|null>(productQuery, {slug}, null));
-export const getRelated = cache((id:string, category:string) => useDemoProducts() ? Promise.resolve(demoProducts.filter(p=>p._id!==id && p.category===category).slice(0,3)) : query<Product[]>(relatedQuery, {id, category}, []));
+export type ProductCategory = {_id:string;name:string;slug:string;description?:string;image?:Product['mainImage'];displayOrder?:number};
+export const getCategories = cache(() => useDemoProducts() ? Promise.resolve([] as ProductCategory[]) : query<ProductCategory[]>(categoriesQuery, {}, []));
+export const getRelated = cache((id:string, category:string, categoryId?:string) => useDemoProducts() ? Promise.resolve(demoProducts.filter(p=>p._id!==id && p.category===category).slice(0,3)) : query<Product[]>(relatedQuery, {id, category, categoryId:categoryId || ''}, []));
 export async function catalogue(featured=false) {
   try {return {products: await (featured ? getFeatured() : getProducts()), failed: false};}
   catch (error) {console.error('Unable to load published catalogue:', error instanceof Error ? error.message : 'Unknown error'); return {products: [], failed: true};}

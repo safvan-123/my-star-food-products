@@ -4,6 +4,7 @@ import {parse,evaluate} from 'groq-js';
 import {productsQuery,productQuery,featuredQuery,relatedQuery} from '../src/sanity/queries';
 import {productEnquiry,whatsappUrl,retailerEnquiry} from '../src/lib/whatsapp';
 import {jsonLd} from '../src/lib/seo';
+import {uniqueProductCategories} from '../src/lib/product-categories';
 // Test-only records. Never imported by the app, never uploaded to Sanity.
 const base={_type:'product',visible:true,featured:true,displayOrder:0,category:'Fixture',name:'Test product',slug:{current:'test-product'}};
 const dataset=[
@@ -26,6 +27,11 @@ test('featured query and related query use the same visibility rules',async()=>{
  assert.deepEqual((await run(featuredQuery)).map((p:{_id:string})=>p._id),['published']);
  assert.deepEqual((await run(relatedQuery,{id:'published',category:'Fixture'})).map((p:{_id:string})=>p._id),['related']);
 });
+test('legacy products without a display order sort with products at order zero',async()=>{
+ const legacy={...base,_id:'legacy',displayOrder:undefined,name:'Untitled order',slug:{current:'legacy'}};
+ const result=await (await evaluate(parse(productsQuery),{dataset:[...dataset,legacy]})).get();
+ assert.deepEqual(result.map((product:{_id:string})=>product._id),['published','legacy','related']);
+});
 test('product enquiry encodes special characters, selected weight and canonical product URL',()=>{
  const url=new URL(productEnquiry({name:'A & B / കേരളം',category:'Food & more',slug:'a-b'},'https://food.example','500 g'));
  assert.equal(url.origin,'https://wa.me');assert.equal(url.pathname,'/919207779771');
@@ -35,6 +41,17 @@ test('general enquiries need no product and optional fields are omitted',()=>{
  assert.match(new URL(whatsappUrl()).searchParams.get('text')!,/MY STAR FOOD PRODUCTS/);
  const text=new URL(productEnquiry({name:'Only name',slug:'only-name'},'https://food.example')).searchParams.get('text')!;
  assert.doesNotMatch(text,/undefined|Category:|Weight:/);
+});
+
+test('general WhatsApp enquiry uses the requested message exactly',()=>{
+ const url=new URL(whatsappUrl());
+ assert.equal(url.pathname,'/919207779771');
+ assert.equal(url.searchParams.get('text'),'Hello MY STAR FOOD PRODUCTS,\n\nPlease share more information about your products. Thank you.');
+});
+
+test('published category labels differing by case or whitespace share one dropdown option',()=>{
+ const categories=[{_id:'one',name:'Masala Blends',slug:'masala-blends'},{_id:'two',name:'  masala   blends ',slug:'masala-blends-2'},{_id:'three',name:'Spice Powders',slug:'spice-powders'}];
+ assert.deepEqual(uniqueProductCategories(categories).map(item=>item.name),['Masala Blends','Spice Powders']);
 });
 test('JSON-LD safely escapes script terminators in CMS content',()=>{
  const text=jsonLd({name:'</script><script>alert(1)</script>'});assert.ok(!text.includes('<'));assert.equal(JSON.parse(text).name,'</script><script>alert(1)</script>');

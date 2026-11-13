@@ -1,5 +1,5 @@
-import {loadEnvConfig} from '@next/env';
-loadEnvConfig(process.cwd());
+import nextEnv from '@next/env';
+nextEnv.loadEnvConfig(process.cwd());
 let failed=false;
 for(const key of ['NEXT_PUBLIC_SANITY_PROJECT_ID','NEXT_PUBLIC_SANITY_DATASET','NEXT_PUBLIC_SITE_URL']){
  const set=!!process.env[key]?.trim(); console.log(`${set?'OK':'MISSING'} ${key}`);if(!set)failed=true;
