@@ -32,8 +32,8 @@ export function PackageSizesInput(props: ArrayOfPrimitivesInputProps) {
     <Flex direction="column" gap={3}>
       <Flex direction="column" gap={2}>
         {rows.map((size, index) => (
-          <Flex key={index} align="center" gap={2}>
-            <Box flex={1}>
+          <div key={index} style={{display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap'}}>
+            <Box flex={1} style={{flex: '1 1 160px', minWidth: 0, maxWidth: '100%'}}>
               <TextInput
                 {...(index === 0 ? props.elementProps : {})}
                 aria-label={`Package size ${index + 1}`}
@@ -44,34 +44,36 @@ export function PackageSizesInput(props: ArrayOfPrimitivesInputProps) {
                 onChange={event => updateSize(index, event.currentTarget.value)}
               />
             </Box>
-            {sizes.length > 1 && <>
-              <Button
-                aria-label={`Move package size ${index + 1} up`}
-                title="Move up"
+            <div style={{display: 'flex', alignItems: 'center', gap: 4, flexShrink: 0}}>
+              {sizes.length > 1 && <>
+                <Button
+                  aria-label={`Move package size ${index + 1} up`}
+                  title="Move up"
+                  mode="bleed"
+                  icon={ArrowUpIcon}
+                  disabled={props.readOnly || index === 0}
+                  onClick={() => moveSize(index, -1)}
+                />
+                <Button
+                  aria-label={`Move package size ${index + 1} down`}
+                  title="Move down"
+                  mode="bleed"
+                  icon={ArrowDownIcon}
+                  disabled={props.readOnly || index === sizes.length - 1}
+                  onClick={() => moveSize(index, 1)}
+                />
+              </>}
+              {sizes.length > 0 && <Button
+                aria-label={`Remove package size ${index + 1}`}
+                title="Remove package size"
                 mode="bleed"
-                icon={ArrowUpIcon}
-                disabled={props.readOnly || index === 0}
-                onClick={() => moveSize(index, -1)}
-              />
-              <Button
-                aria-label={`Move package size ${index + 1} down`}
-                title="Move down"
-                mode="bleed"
-                icon={ArrowDownIcon}
-                disabled={props.readOnly || index === sizes.length - 1}
-                onClick={() => moveSize(index, 1)}
-              />
-            </>}
-            {sizes.length > 0 && <Button
-              aria-label={`Remove package size ${index + 1}`}
-              title="Remove package size"
-              mode="bleed"
-              tone="critical"
-              icon={TrashIcon}
-              disabled={props.readOnly}
-              onClick={() => props.onItemRemove(index)}
-            />}
-          </Flex>
+                tone="critical"
+                icon={TrashIcon}
+                disabled={props.readOnly}
+                onClick={() => props.onItemRemove(index)}
+              />}
+            </div>
+          </div>
         ))}
       </Flex>
       <Button
