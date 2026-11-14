@@ -80,7 +80,7 @@ export function PackageSizesInput(props: ArrayOfPrimitivesInputProps) {
         type="button"
         mode="ghost"
         icon={AddIcon}
-        text="Add package size"
+        text="Add size"
         disabled={props.readOnly}
         onClick={() => props.onItemAppend('')}
       />
