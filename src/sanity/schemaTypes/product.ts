@@ -1,6 +1,7 @@
 import {defineType, defineField, defineArrayMember} from 'sanity';
 import {PackageOpen} from 'lucide-react';
 import {CatalogueForm} from '../studio/CatalogueForm';
+import {PackageSizesInput} from '../studio/PackageSizesInput';
 const imageFields = [defineField({name:'alt', title:'Image description', type:'string', description:'Describe the actual product for accessibility.'})];
 export const product = defineType({
   name:'product', title:'Product', type:'document', icon:PackageOpen,
@@ -23,10 +24,10 @@ export const product = defineType({
     defineField({name:'images',title:'Additional images',type:'array',group:'images',fieldset:'productPhotos',of:[defineArrayMember({type:'image',options:{hotspot:true},fields:imageFields})],validation:r=>r.max(8)}),
     defineField({name:'shortDescription',title:'Short description',type:'text',rows:3,group:'details',fieldset:'descriptions',validation:r=>r.max(300)}),
     defineField({name:'fullDescription',title:'Full description',type:'text',rows:8,group:'details',fieldset:'descriptions'}),
-    defineField({name:'weights',title:'Package sizes / net weights',type:'array',of:[defineArrayMember({type:'string',validation:r=>r.required().max(60)})],group:'details',fieldset:'packagePricing',validation:r=>r.unique(),description:'Example: 250 g, 500 g. Add only actual package options.'}),
+    defineField({name:'weights',title:'Package sizes / net weights',type:'array',of:[defineArrayMember({type:'string',validation:r=>r.required().max(60)})],group:'details',fieldset:'packagePricing',components:{input:PackageSizesInput},validation:r=>r.unique(),description:'Type each package size directly. Use Add package size for another row; enter only actual package options.'}),
     defineField({name:'ingredients',title:'Ingredients',type:'text',rows:3,group:'details',fieldset:'ingredientsPackaging'}),
     defineField({name:'packagingDetails',title:'Packaging details',type:'text',rows:3,group:'details',fieldset:'ingredientsPackaging'}),
-    defineField({name:'price',title:'Price (INR, optional)',type:'number',group:'details',fieldset:'packagePricing',description:'Leave empty if customers should enquire. A zero value is shown as ₹0.',validation:r=>r.min(0)}),
+    defineField({name:'price',title:'Price (INR, optional)',type:'number',group:'details',fieldset:'packagePricing',description:'Enter a number in rupees, such as 120. Leave empty if customers should enquire. A zero value is shown as ₹0.',validation:r=>r.min(0)}),
     defineField({name:'featured',title:'Featured product',type:'boolean',initialValue:false,group:'publishing',fieldset:'websitePlacement'}),
     defineField({name:'visible',title:'Show on website',type:'boolean',initialValue:true,group:'publishing',fieldset:'websitePlacement',validation:r=>r.required(),description:'Publish after changing this switch. Off hides the listing and detail URL.'}),
     defineField({name:'displayOrder',title:'Display order',type:'number',initialValue:0,group:'publishing',fieldset:'websitePlacement',validation:r=>r.integer().min(0),description:'Smaller numbers appear first.'}),

@@ -2,6 +2,17 @@ import {defineType, defineField} from 'sanity';
 import {Tag} from 'lucide-react';
 import {CatalogueForm} from '../studio/CatalogueForm';
 
+/**
+ * Sanity keeps the working draft under `drafts.<id>` and, once published,
+ * also keeps its published copy under `<id>`. Exclude both IDs when checking
+ * uniqueness so a document never matches itself during live field validation.
+ */
+function categoryDocumentIdsToExclude(documentId?: string) {
+  if (!documentId) return [];
+  const publishedId = documentId.replace(/^drafts\./, '');
+  return [publishedId, `drafts.${publishedId}`];
+}
+
 export const productCategory = defineType({
   name: 'productCategory',
   title: 'Product Category',
@@ -23,9 +34,10 @@ export const productCategory = defineType({
         const normalized = value?.trim().replace(/\s+/g, ' ').toLocaleLowerCase();
         if (!normalized) return true;
         const client = context.getClient({apiVersion: '2026-10-01'});
+        const excludedIds = categoryDocumentIdsToExclude(context.document?._id);
         const candidates = await client.fetch<{_id: string; name?: string}[]>(
-          '*[_type == "productCategory" && _id != $id]{_id,name}',
-          {id: context.document?._id?.replace(/^drafts\./, '')},
+          '*[_type == "productCategory" && !(_id in $excludedIds)]{_id,name}',
+          {excludedIds},
         );
         const duplicate = candidates.some(category => category.name?.trim().replace(/\s+/g, ' ').toLocaleLowerCase() === normalized);
         return duplicate ? 'A category with this name already exists.' : true;
@@ -37,9 +49,10 @@ export const productCategory = defineType({
       validation: rule => rule.required().custom(async (value, context) => {
         if (!value?.current) return true;
         const client = context.getClient({apiVersion: '2026-10-01'});
+        const excludedIds = categoryDocumentIdsToExclude(context.document?._id);
         const duplicate = await client.fetch(
-          '*[_type == "productCategory" && lower(slug.current) == lower($slug) && _id != $id][0]._id',
-          {slug: value.current, id: context.document?._id?.replace(/^drafts\./, '')},
+          '*[_type == "productCategory" && lower(slug.current) == lower($slug) && !(_id in $excludedIds)][0]._id',
+          {slug: value.current, excludedIds},
         );
         return duplicate ? 'This category URL is already in use.' : true;
       }),
