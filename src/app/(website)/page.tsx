@@ -19,7 +19,7 @@ const process=[
  {num:'03',title:'Confirm with our team',description:'Discuss current stock, pack sizes, prices and supply arrangements before ordering.'},
 ];
 export default async function Home(){
- const {products,failed}=await catalogue(true);
+ const {products,failed}=await catalogue();
  return <>
  <section className="hero home-hero-tricolor" aria-labelledby="home-heading"><div className="hero-texture" aria-hidden="true"/><div className="container hero-grid">
   <Reveal className="hero-copy"><span className="hero-kicker"><span className="kicker-dot"/>{content.heroEyebrow}</span>
