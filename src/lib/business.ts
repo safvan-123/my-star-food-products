@@ -18,7 +18,7 @@ export const business = {
     facebook: 'https://www.facebook.com/search/top?q=my%20star%20food',
     youtube: 'https://www.youtube.com/results?search_query=My+Star+Food',
   },
-  logo: '/images/logo-crest.svg',
+  logo: '/images/my-star-logo.jpeg',
   heroImage: '/images/demo/collection.svg',
   companyImage: '',
 };
