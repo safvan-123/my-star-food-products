@@ -8,7 +8,7 @@ import {business,navigation} from '@/lib/business';
 import {whatsappUrl} from '@/lib/whatsapp';
 export function Brand() {
   return <Link href="/" className="brand" aria-label={`${business.name} home`}>
-    <span className="brand-mark" style={{overflow:'hidden'}}><Image src={business.logo} alt="" width={48} height={48} style={{borderRadius:'50%',width:'100%',height:'100%'}}/></span>
+    <span className="brand-mark" style={{overflow:'hidden',background:'#342d7a'}}><Image src={business.logo} alt="" width={48} height={48} style={{width:'70%',height:'70%',objectFit:'contain'}}/></span>
     <span className="brand-wordmark">MY STAR<span className="brand-small">FOOD PRODUCTS</span></span>
   </Link>;
 }
