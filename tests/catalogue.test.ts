@@ -1,7 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {parse,evaluate} from 'groq-js';
-import {productsQuery,productQuery,featuredQuery,relatedQuery} from '../src/sanity/queries';
+import {productsQuery,productQuery,featuredQuery,relatedQuery,categoriesQuery} from '../src/sanity/queries';
 import {productEnquiry,whatsappUrl,retailerEnquiry} from '../src/lib/whatsapp';
 import {jsonLd} from '../src/lib/seo';
 import {uniqueProductCategories} from '../src/lib/product-categories';
@@ -52,6 +52,17 @@ test('general WhatsApp enquiry uses the requested message exactly',()=>{
 test('published category labels differing by case or whitespace share one dropdown option',()=>{
  const categories=[{_id:'one',name:'Masala Blends',slug:'masala-blends'},{_id:'two',name:'  masala   blends ',slug:'masala-blends-2'},{_id:'three',name:'Spice Powders',slug:'spice-powders'}];
  assert.deepEqual(uniqueProductCategories(categories).map(item=>item.name),['Masala Blends','Spice Powders']);
+});
+test('published categories are listed from Sanity even when they have no products',async()=>{
+ const categoryDataset=[
+  {_id:'powders',_type:'productCategory',name:'Spice Powders',slug:{current:'spice-powders'},image:{asset:{_ref:'image-powders'}}},
+  {_id:'flours',_type:'productCategory',name:'Flours & Rice Powders',slug:{current:'flours-rice-powders'},image:{asset:{_ref:'image-flours'}}},
+  {_id:'drafts.masala',_type:'productCategory',name:'Draft Category',slug:{current:'draft-category'}},
+  {_id:'no-slug',_type:'productCategory',name:'Incomplete Category'},
+ ];
+ const result=await (await evaluate(parse(categoriesQuery),{dataset:categoryDataset})).get();
+ assert.deepEqual(result.map((category:{_id:string})=>category._id),['flours','powders']);
+ assert.equal(result[0].image.asset._ref,'image-flours');
 });
 test('JSON-LD safely escapes script terminators in CMS content',()=>{
  const text=jsonLd({name:'</script><script>alert(1)</script>'});assert.ok(!text.includes('<'));assert.equal(JSON.parse(text).name,'</script><script>alert(1)</script>');
